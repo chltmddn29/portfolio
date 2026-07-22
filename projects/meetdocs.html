@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetDocs | 최승우 Portfolio</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="name">최승우</div>
+      <nav>
+        <a href="../index.html">Projects</a>
+      </nav>
+    </header>
+
+    <a class="back-link" href="../index.html">&larr; Projects</a>
+
+    <div class="detail-header">
+      <h1>MeetDocs</h1>
+      <p class="detail-tagline">회의 녹음을 AI가 회의록으로 자동 변환해주는 서비스</p>
+    </div>
+
+    <div class="detail-section">
+      <div class="demo-toolbar">
+        <span class="demo-label">Live Demo</span>
+        <a class="demo-open-link" href="https://meet-docs-web.vercel.app" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+      </div>
+      <div class="demo-frame-wrap">
+        <iframe
+          class="demo-frame"
+          src="https://meet-docs-web.vercel.app"
+          title="MeetDocs 실시간 데모"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h2>Overview</h2>
+      <p>
+        회의를 녹음하면 AI가 음성을 인식해 회의록(문서)으로 자동 정리해주는 웹 서비스입니다.
+        업로드한 오디오는 백엔드에서 화자 분리 및 STT(음성 인식)를 거쳐 텍스트로 변환되고,
+        요약된 회의록을 문서(DOCX/PDF) 또는 노션 페이지로 내보낼 수 있습니다.
+      </p>
+    </div>
+
+    <div class="detail-section">
+      <h2>Tech Stack</h2>
+
+      <div class="stack-group">
+        <div class="stack-label">Frontend</div>
+        <div class="tag-row">
+          <span class="tag">Flutter Web</span>
+          <span class="tag">Riverpod</span>
+          <span class="tag">go_router</span>
+          <span class="tag">Dio</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-label">Backend</div>
+        <div class="tag-row">
+          <span class="tag">FastAPI</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">Groq (STT/LLM)</span>
+          <span class="tag">pyannote.audio (화자 분리)</span>
+          <span class="tag">python-docx / reportlab</span>
+          <span class="tag">Notion API</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-label">Infra</div>
+        <div class="tag-row">
+          <span class="tag">Vercel</span>
+          <span class="tag">Hugging Face Spaces (Docker)</span>
+          <span class="tag">Supabase PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h2>Architecture</h2>
+      <div class="architecture-note">
+        <strong>Frontend</strong> (Flutter Web, Vercel 배포) → <strong>Backend</strong> (FastAPI, Hugging Face Spaces Docker) → <strong>DB</strong> (Supabase PostgreSQL)<br /><br />
+        업로드된 오디오는 백엔드에서 스트리밍으로 저장되고, ffmpeg으로 청크 변환 후 Groq API로 STT/요약을 수행합니다.
+        변환 파이프라인은 화면 밖에서도 끝까지 진행되도록 별도 provider로 분리되어 있어, 사용자가 페이지를 이동해도 작업이 중단되지 않습니다.
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 최승우
+    </footer>
+  </div>
+</body>
+</html>
