@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap wrap-wide">
     <header class="site-header">
       <div class="name">최승우</div>
       <nav>
@@ -27,9 +27,10 @@
         <span class="demo-label">Live Demo</span>
         <a class="demo-open-link" href="https://meet-docs-web.vercel.app" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
       </div>
-      <div class="demo-frame-wrap">
+      <div class="demo-frame-wrap" id="demoFrameWrap">
         <iframe
           class="demo-frame"
+          id="demoFrame"
           src="https://meet-docs-web.vercel.app"
           title="MeetDocs 실시간 데모"
         ></iframe>
@@ -93,5 +94,23 @@
       &copy; 2026 최승우
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var DESIGN_W = 1440;
+      var DESIGN_H = 900;
+      var wrap = document.getElementById('demoFrameWrap');
+      var frame = document.getElementById('demoFrame');
+
+      function resize() {
+        var scale = wrap.clientWidth / DESIGN_W;
+        frame.style.transform = 'scale(' + scale + ')';
+        wrap.style.height = Math.round(DESIGN_H * scale) + 'px';
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+    })();
+  </script>
 </body>
 </html>
