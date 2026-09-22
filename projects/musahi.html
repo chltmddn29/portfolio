@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>musahi | 최승우 Portfolio</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="name">최승우</div>
+      <nav>
+        <a href="../index.html">Projects</a>
+      </nav>
+    </header>
+
+    <a class="back-link" href="../index.html">&larr; Projects</a>
+
+    <div class="detail-header">
+      <h1>musahi (무사히)</h1>
+      <p class="detail-tagline">재난문자를 관심지역 기준으로 실시간 수신하고, 대피소·안전연락처 정보를 제공하는 재난 안전 Flutter 앱</p>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/chltmddn29/musahi" target="_blank" rel="noopener">GitHub 저장소 ↗</a>
+    </div>
+
+    <div class="detail-section">
+      <h2>Overview</h2>
+      <p>
+        사용자가 등록한 관심지역을 기준으로 재난문자를 실시간으로 수신하고, 대피소·안전연락처 정보와 상황별 행동요령을 제공하는 앱입니다.
+        서버가 행정안전부 재난안전데이터공유플랫폼에서 재난문자를 주기적으로 수집해 심각도와 지역에 따라 FCM 토픽으로 발행하면,
+        클라이언트는 관심지역 설정에 맞는 토픽을 구독해 알림을 받습니다.
+      </p>
+    </div>
+
+    <div class="detail-section">
+      <h2>Tech Stack</h2>
+
+      <div class="stack-group">
+        <div class="stack-label">Client</div>
+        <div class="tag-row">
+          <span class="tag">Flutter</span>
+          <span class="tag">go_router</span>
+          <span class="tag">firebase_core</span>
+          <span class="tag">cloud_firestore</span>
+          <span class="tag">firebase_messaging (FCM)</span>
+          <span class="tag">Dio</span>
+          <span class="tag">shared_preferences</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-label">Server</div>
+        <div class="tag-row">
+          <span class="tag">Firebase Functions (Node.js/TypeScript)</span>
+          <span class="tag">재난안전데이터공유플랫폼 API</span>
+          <span class="tag">SGIS Open API</span>
+          <span class="tag">Cloud Firestore</span>
+          <span class="tag">Cloud Messaging</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h2>Architecture</h2>
+      <div class="architecture-note">
+        Flutter 앱은 <strong>core</strong>(공통 상수·라우팅·알림 동기화·전역 설정)와 <strong>features</strong>(재난문자·설정/관심지역·대피소·행동요령·홈)
+        레이어로 나뉘고, 각 feature는 model / repository / presentation 하위 레이어로 구성됩니다.<br /><br />
+        <strong>Firebase Functions</strong>가 재난문자를 주기적으로 수집해 Firestore에 저장하고, 심각도·지역별로 FCM 토픽을 발행합니다.
+        클라이언트는 SGIS 행정구역 검색으로 등록한 관심지역을 실제 수신지역과 매칭해 가장 세분화된 지역(없으면 상위 시군구·시도) 기준으로 토픽을 구독하며,
+        설정 변경 시 즉시 구독/해제에 반영되고 동기화 실패 시 재시도합니다.
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 최승우
+    </footer>
+  </div>
+
+  <script data-goatcounter="https://chltmddn.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
